@@ -35,56 +35,49 @@
 
 ---
 
-### M2: System API & User Space (In Progress)
+### M2: The Memory Architect (Allocation)
+- [ ] Parse Multiboot2 Memory Map (Identify free RAM).
+- [ ] Implement Physical Frame Allocator (4KiB chunks).
+- [ ] Implement Virtual Memory (Recursive/Offset Page Tables).
+- [ ] Initialize Heap (Range: `0x4444_4444_0000`).
+- [ ] Implement `GlobalAlloc` trait (Bump Allocator first).
+- [ ] **Verification:** `Box::new(42)` and `Vec::push(1)` do not crash.
 
-**Status:** 0% Complete
-```
-░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 0/20 (0%)
-```
+### M3: The Hypervisor Core (Multitasking)
+- [ ] Create `Task` struct (Future polling logic).
+- [ ] Implement Simple Executor (Round-Robin loop).
+- [ ] Define `Waker` logic to handle sleeping tasks.
+- [ ] Set up IDT (Interrupt Descriptor Table).
+- [ ] Enable Hardware Interrupts (PIC/APIC) for Keyboard.
+- [ ] **Verification:** Two async print tasks run concurrently.
 
-#### Planned Tasks
-- [ ] System call interface definition and implementation
-- [ ] User space library (libc equivalent)
-- [ ] Shell/command interpreter
-- [ ] Basic command utilities (ls, cd, cat, etc.)
-- [ ] File I/O operations and permissions
-- [ ] Process creation and management (fork, exec)
-- [ ] Signal handling
-- [ ] Environment variables and configuration
-- [ ] Standard input/output/error handling
-- [ ] Job control and background processes
-- [ ] Pipe operations
-- [ ] Redirections (>, <, >>)
-- [ ] Pattern matching and globbing
-- [ ] History and line editing
-- [ ] User authentication and permissions
-- [ ] Process monitoring tools (ps, top)
-- [ ] System information tools (uname, sysinfo)
-- [ ] Resource management tools
-- [ ] Batch script execution
-- [ ] Testing framework for user space
+### M4: The Cortex Integration (AI)
+- [ ] Enable CPU Features (SSE/AVX) in `x86_64` config.
+- [ ] Port `candle-core` to `no_std` (or create dummy backend).
+- [ ] Hardcode a "dummy" quantized model weight set.
+- [ ] Implement `infer(input)` function.
+- [ ] **Verification:** `kernel_main` calls AI and gets a result string.
 
-**Target Completion:** 2026-03-04
+### M5: MemexFS Foundation (Storage)
+- [ ] Enumerate PCI bus to find NVMe Controller.
+- [ ] Write Polling NVMe Driver (Admin Queue init).
+- [ ] Implement `read_block` / `write_block`.
+- [ ] Port HNSW (Vector Index) logic to heap.
 
----
-
-## Upcoming Milestones
-
-### M3: Advanced Features
-- IPC (Inter-Process Communication)
-- Networking stack
-- Advanced filesystem features
-- Performance optimization
-
-### M4: Polish & Production
-- Security hardening
-- Performance tuning
-- Documentation completion
-- Release preparation
+### M6: The Interface (Shell)
+- [ ] Switch to Graphics Output Protocol (Framebuffer).
+- [ ] Render Text Rendering primitive (Font bitmap).
+- [ ] Implement Shell Loop (print "> ", `read_line`, `eval`).
 
 ---
 
-## Notes
-- M1 successfully completed on 2026-01-04
-- Focus shifted to M2: System API & User Space development
-- All core infrastructure is stable and ready for user space development
+## 3. Legend & Workflow
+
+### Status Legend
+✅ = Merged to Main
+🚧 = In Progress
+🛑 = Blocked
+
+### Workflow Reminder
+> Check off items in the IDE preview or on GitHub after merging a feature branch.
+lopment
