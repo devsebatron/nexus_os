@@ -1,7 +1,7 @@
 [package]
 name = "nexus_kernel"
 version = "0.1.0"
-edition = "2024"
+edition = "2021"
 
 [dependencies]
 bootloader_api = "0.11"

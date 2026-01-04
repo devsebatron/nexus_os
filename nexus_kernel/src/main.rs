@@ -4,9 +4,9 @@
 
 extern crate alloc;
 
-use alloc::{boxed::Box, vec::Vec};
+use alloc::{boxed::Box, vec, vec::Vec};
 use bootloader_api::config::Mapping;
-use bootloader_api::{BootInfo, entry_point};
+use bootloader_api::{entry_point, BootInfo};
 use core::panic::PanicInfo;
 use lazy_static::lazy_static;
 use spin::Mutex;
@@ -15,6 +15,7 @@ use x86_64::VirtAddr;
 use logger::FrameBufferWriter;
 
 mod allocator;
+mod cortex;
 mod interrupts;
 mod logger;
 mod memory;
@@ -96,6 +97,14 @@ fn kernel_main(boot_info: &'static mut BootInfo) -> ! {
     println!("Heap verification successful!");
 
     init(); // Initialize IDT and PICs
+
+    // Cortex AI Layer Initialization
+    println!("Initializing Cortex AI Layer...");
+    let cortex = cortex::CortexEngine::new();
+    let input = vec![0.5, -0.5, 1.0, 0.0];
+    let result = cortex.infer(&input);
+    println!("{}", result);
+    println!("Cortex Engine: AVX registers used successfully without fault.");
 
     let mut executor = task::simple_executor::SimpleExecutor::new();
     executor.spawn(task::Task::new(task::keyboard::print_keypresses()));

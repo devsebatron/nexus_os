@@ -1,9 +1,9 @@
 use linked_list_allocator::LockedHeap;
 use x86_64::{
-    VirtAddr,
     structures::paging::{
-        FrameAllocator, Mapper, Page, PageTableFlags, Size4KiB, mapper::MapToError,
+        mapper::MapToError, FrameAllocator, Mapper, Page, PageTableFlags, Size4KiB,
     },
+    VirtAddr,
 };
 
 pub const HEAP_START: usize = 0x_4444_4444_0000;

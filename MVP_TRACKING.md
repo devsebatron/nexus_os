@@ -4,7 +4,7 @@
 
 ## Overall Progress
 ```
-██████████████████████████████████████████████████░░░░░░░░░░░░░░░░░░ 50/100 (50%)
+██████████████████████████████████████████████████████████████████░░ 66/100 (66%)
 ```
 
 ---
@@ -52,11 +52,11 @@
 - [x] **Verification:** Two async print tasks run concurrently.
 
 ### M4: The Cortex Integration (AI)
-- [ ] Enable CPU Features (SSE/AVX) in `x86_64` config.
-- [ ] Port `candle-core` to `no_std` (or create dummy backend).
-- [ ] Hardcode a "dummy" quantized model weight set.
-- [ ] Implement `infer(input)` function.
-- [ ] **Verification:** `kernel_main` calls AI and gets a result string.
+- [x] Enable CPU Features (SSE/AVX) in `x86_64` config.
+- [x] Port `candle-core` to `no_std` (or create dummy backend).
+- [x] Hardcode a "dummy" quantized model weight set.
+- [x] Implement `infer(input)` function.
+- [x] **Verification:** `kernel_main` calls AI and gets a result string.
 
 ### M5: MemexFS Foundation (Storage)
 - [ ] Enumerate PCI bus to find NVMe Controller.
