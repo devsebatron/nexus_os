@@ -1,7 +1,16 @@
 use std::{env, process::Command};
 
 fn main() {
-    let kernel_path = env::current_dir().unwrap().join("nexus_kernel");
+    let current_dir = env::current_dir().unwrap();
+    let kernel_path = if current_dir.join("nexus_kernel").exists() {
+        current_dir.join("nexus_kernel")
+    } else if current_dir.ends_with("nexus_kernel") {
+        current_dir
+    } else {
+        panic!(
+            "Cannot find nexus_kernel directory. Please run from workspace root or kernel directory."
+        );
+    };
 
     // Build kernel
     let status = Command::new("cargo")

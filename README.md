@@ -71,3 +71,27 @@ Build your application, and NexusOS JIT-compiles it into a sealed, immutable mic
 ### For Students
 **Knowledge graphs instead of folder hierarchies.**
 Organize your research, notes, and projects as a semantic web. Connect concepts naturally. Cortex can traverse your MemexFS to generate summaries and find connections between seemingly unrelated topics in your studies.
+
+## Getting Started
+
+### Prerequisites
+- Rust Nightly Toolchain (`rustup override set nightly`)
+- QEMU (`qemu-system-x86_64`)
+- `cargo-binutils` (`cargo install cargo-binutils`)
+- `llvm-tools-preview` (`rustup component add llvm-tools-preview`)
+
+### Running the Kernel
+To compile the OS and launch it specifically in QEMU:
+
+```bash
+cargo run --package nexus_boot
+```
+
+This will:
+1. Compile `nexus_kernel` for target `x86_64-unknown-none`.
+2. Link it with the bootloader.
+3. Launch QEMU with the resulting disk image.
+
+**Interacting:**
+- The OS now supports **Async Multitasking**.
+- Type on your keyboard to see scancodes processed asynchronously on the screen.

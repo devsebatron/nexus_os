@@ -1,8 +1,8 @@
 warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
 package:   /home/nevin/nexus_os/nexus_kernel/Cargo.toml
 workspace: /home/nevin/nexus_os/Cargo.toml
-   0.097147530s  INFO prepare_target{force=false package_id=nexus_kernel v0.1.0 (/home/nevin/nexus_os/nexus_kernel) target="nexus_kernel"}: cargo::core::compiler::fingerprint: fingerprint error for nexus_kernel v0.1.0 (/home/nevin/nexus_os/nexus_kernel)/Check { test: false }/TargetInner { name: "nexus_kernel", doc: true, ..: with_path("/home/nevin/nexus_os/nexus_kernel/src/main.rs", Edition2024) }
-   0.097186590s  INFO prepare_target{force=false package_id=nexus_kernel v0.1.0 (/home/nevin/nexus_os/nexus_kernel) target="nexus_kernel"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/nevin/nexus_os/target/debug/.fingerprint/nexus_kernel-4182c09aa81daed4/bin-nexus_kernel`
+   0.162837951s  INFO prepare_target{force=false package_id=nexus_kernel v0.1.0 (/home/nevin/nexus_os/nexus_kernel) target="nexus_kernel"}: cargo::core::compiler::fingerprint: fingerprint error for nexus_kernel v0.1.0 (/home/nevin/nexus_os/nexus_kernel)/Check { test: true }/TargetInner { name: "nexus_kernel", doc: true, ..: with_path("/home/nevin/nexus_os/nexus_kernel/src/main.rs", Edition2024) }
+   0.162913661s  INFO prepare_target{force=false package_id=nexus_kernel v0.1.0 (/home/nevin/nexus_os/nexus_kernel) target="nexus_kernel"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/nevin/nexus_os/target/debug/.fingerprint/nexus_kernel-93b577045c936beb/test-bin-nexus_kernel`
 
 Caused by:
     No such file or directory (os error 2)
@@ -44,141 +44,11 @@ Stack backtrace:
   24: <unknown>
   25: __libc_start_main
   26: <unknown>
-   0.107400060s  INFO prepare_target{force=false package_id=x86_64 v0.15.4 target="x86_64"}: cargo::core::compiler::fingerprint: fingerprint error for x86_64 v0.15.4/Check { test: false }/TargetInner { ..: lib_target("x86_64", ["lib"], "/home/nevin/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/x86_64-0.15.4/src/lib.rs", Edition2018) }
-   0.107443440s  INFO prepare_target{force=false package_id=x86_64 v0.15.4 target="x86_64"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/nevin/nexus_os/target/debug/.fingerprint/x86_64-94543dc6f3274480/lib-x86_64`
-
-Caused by:
-    No such file or directory (os error 2)
-
-Stack backtrace:
-   0: cargo_util::paths::read_bytes
-   1: cargo_util::paths::read
-   2: cargo::core::compiler::fingerprint::_compare_old_fingerprint
-   3: cargo::core::compiler::fingerprint::prepare_target
-   4: cargo::core::compiler::compile
-   5: cargo::core::compiler::compile
-   6: <cargo::core::compiler::build_runner::BuildRunner>::compile
-   7: cargo::ops::cargo_compile::compile_ws
-   8: cargo::ops::cargo_compile::compile_with_exec
-   9: cargo::ops::cargo_compile::compile
-  10: cargo::commands::check::exec
-  11: <cargo::cli::Exec>::exec
-  12: cargo::main
-  13: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
-  14: std::rt::lang_start::<()>::{closure#0}
-  15: <&dyn core::ops::function::Fn<(), Output = i32> + core::panic::unwind_safe::RefUnwindSafe + core::marker::Sync as core::ops::function::FnOnce<()>>::call_once
-             at /rustc/7ecabfaaf1a58172cdd71f7661cf6589ddf7928f/library/core/src/ops/function.rs:287:21
-  16: std::panicking::catch_unwind::do_call::<&dyn core::ops::function::Fn<(), Output = i32> + core::panic::unwind_safe::RefUnwindSafe + core::marker::Sync, i32>
-             at /rustc/7ecabfaaf1a58172cdd71f7661cf6589ddf7928f/library/std/src/panicking.rs:581:40
-  17: std::panicking::catch_unwind::<i32, &dyn core::ops::function::Fn<(), Output = i32> + core::panic::unwind_safe::RefUnwindSafe + core::marker::Sync>
-             at /rustc/7ecabfaaf1a58172cdd71f7661cf6589ddf7928f/library/std/src/panicking.rs:544:19
-  18: std::panic::catch_unwind::<&dyn core::ops::function::Fn<(), Output = i32> + core::panic::unwind_safe::RefUnwindSafe + core::marker::Sync, i32>
-             at /rustc/7ecabfaaf1a58172cdd71f7661cf6589ddf7928f/library/std/src/panic.rs:359:14
-  19: std::rt::lang_start_internal::{closure#0}
-             at /rustc/7ecabfaaf1a58172cdd71f7661cf6589ddf7928f/library/std/src/rt.rs:175:24
-  20: std::panicking::catch_unwind::do_call::<std::rt::lang_start_internal::{closure#0}, isize>
-             at /rustc/7ecabfaaf1a58172cdd71f7661cf6589ddf7928f/library/std/src/panicking.rs:581:40
-  21: std::panicking::catch_unwind::<isize, std::rt::lang_start_internal::{closure#0}>
-             at /rustc/7ecabfaaf1a58172cdd71f7661cf6589ddf7928f/library/std/src/panicking.rs:544:19
-  22: std::panic::catch_unwind::<std::rt::lang_start_internal::{closure#0}, isize>
-             at /rustc/7ecabfaaf1a58172cdd71f7661cf6589ddf7928f/library/std/src/panic.rs:359:14
-  23: std::rt::lang_start_internal
-             at /rustc/7ecabfaaf1a58172cdd71f7661cf6589ddf7928f/library/std/src/rt.rs:171:5
-  24: main
-  25: <unknown>
-  26: __libc_start_main
-  27: <unknown>
-   0.108122310s  INFO prepare_target{force=false package_id=bitflags v2.10.0 target="bitflags"}: cargo::core::compiler::fingerprint: fingerprint error for bitflags v2.10.0/Check { test: false }/TargetInner { ..: lib_target("bitflags", ["lib"], "/home/nevin/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bitflags-2.10.0/src/lib.rs", Edition2021) }
-   0.108166140s  INFO prepare_target{force=false package_id=bitflags v2.10.0 target="bitflags"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/nevin/nexus_os/target/debug/.fingerprint/bitflags-58a9b0610e43665f/lib-bitflags`
-
-Caused by:
-    No such file or directory (os error 2)
-
-Stack backtrace:
-   0: cargo_util::paths::read_bytes
-   1: cargo_util::paths::read
-   2: cargo::core::compiler::fingerprint::_compare_old_fingerprint
-   3: cargo::core::compiler::fingerprint::prepare_target
-   4: cargo::core::compiler::compile
-   5: cargo::core::compiler::compile
-   6: cargo::core::compiler::compile
-   7: <cargo::core::compiler::build_runner::BuildRunner>::compile
-   8: cargo::ops::cargo_compile::compile_ws
-   9: cargo::ops::cargo_compile::compile_with_exec
-  10: cargo::ops::cargo_compile::compile
-  11: cargo::commands::check::exec
-  12: <cargo::cli::Exec>::exec
-  13: cargo::main
-  14: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
-  15: std::rt::lang_start::<()>::{closure#0}
-  16: <&dyn core::ops::function::Fn<(), Output = i32> + core::panic::unwind_safe::RefUnwindSafe + core::marker::Sync as core::ops::function::FnOnce<()>>::call_once
-             at /rustc/7ecabfaaf1a58172cdd71f7661cf6589ddf7928f/library/core/src/ops/function.rs:287:21
-  17: std::panicking::catch_unwind::do_call::<&dyn core::ops::function::Fn<(), Output = i32> + core::panic::unwind_safe::RefUnwindSafe + core::marker::Sync, i32>
-             at /rustc/7ecabfaaf1a58172cdd71f7661cf6589ddf7928f/library/std/src/panicking.rs:581:40
-  18: std::panicking::catch_unwind::<i32, &dyn core::ops::function::Fn<(), Output = i32> + core::panic::unwind_safe::RefUnwindSafe + core::marker::Sync>
-             at /rustc/7ecabfaaf1a58172cdd71f7661cf6589ddf7928f/library/std/src/panicking.rs:544:19
-  19: std::panic::catch_unwind::<&dyn core::ops::function::Fn<(), Output = i32> + core::panic::unwind_safe::RefUnwindSafe + core::marker::Sync, i32>
-             at /rustc/7ecabfaaf1a58172cdd71f7661cf6589ddf7928f/library/std/src/panic.rs:359:14
-  20: std::rt::lang_start_internal::{closure#0}
-             at /rustc/7ecabfaaf1a58172cdd71f7661cf6589ddf7928f/library/std/src/rt.rs:175:24
-  21: std::panicking::catch_unwind::do_call::<std::rt::lang_start_internal::{closure#0}, isize>
-             at /rustc/7ecabfaaf1a58172cdd71f7661cf6589ddf7928f/library/std/src/panicking.rs:581:40
-  22: std::panicking::catch_unwind::<isize, std::rt::lang_start_internal::{closure#0}>
-             at /rustc/7ecabfaaf1a58172cdd71f7661cf6589ddf7928f/library/std/src/panicking.rs:544:19
-  23: std::panic::catch_unwind::<std::rt::lang_start_internal::{closure#0}, isize>
-             at /rustc/7ecabfaaf1a58172cdd71f7661cf6589ddf7928f/library/std/src/panic.rs:359:14
-  24: std::rt::lang_start_internal
-             at /rustc/7ecabfaaf1a58172cdd71f7661cf6589ddf7928f/library/std/src/rt.rs:171:5
-  25: main
-  26: <unknown>
-  27: __libc_start_main
-  28: <unknown>
-   0.109253430s  INFO prepare_target{force=false package_id=nexus_kernel v0.1.0 (/home/nevin/nexus_os/nexus_kernel) target="nexus_kernel"}: cargo::core::compiler::fingerprint: fingerprint error for nexus_kernel v0.1.0 (/home/nevin/nexus_os/nexus_kernel)/Check { test: true }/TargetInner { name: "nexus_kernel", doc: true, ..: with_path("/home/nevin/nexus_os/nexus_kernel/src/main.rs", Edition2024) }
-   0.109281690s  INFO prepare_target{force=false package_id=nexus_kernel v0.1.0 (/home/nevin/nexus_os/nexus_kernel) target="nexus_kernel"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/nevin/nexus_os/target/debug/.fingerprint/nexus_kernel-09b39e11faa8070d/test-bin-nexus_kernel`
-
-Caused by:
-    No such file or directory (os error 2)
-
-Stack backtrace:
-   0: cargo_util::paths::read_bytes
-   1: cargo_util::paths::read
-   2: cargo::core::compiler::fingerprint::_compare_old_fingerprint
-   3: cargo::core::compiler::fingerprint::prepare_target
-   4: cargo::core::compiler::compile
-   5: <cargo::core::compiler::build_runner::BuildRunner>::compile
-   6: cargo::ops::cargo_compile::compile_ws
-   7: cargo::ops::cargo_compile::compile_with_exec
-   8: cargo::ops::cargo_compile::compile
-   9: cargo::commands::check::exec
-  10: <cargo::cli::Exec>::exec
-  11: cargo::main
-  12: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
-  13: std::rt::lang_start::<()>::{closure#0}
-  14: <&dyn core::ops::function::Fn<(), Output = i32> + core::panic::unwind_safe::RefUnwindSafe + core::marker::Sync as core::ops::function::FnOnce<()>>::call_once
-             at /rustc/7ecabfaaf1a58172cdd71f7661cf6589ddf7928f/library/core/src/ops/function.rs:287:21
-  15: std::panicking::catch_unwind::do_call::<&dyn core::ops::function::Fn<(), Output = i32> + core::panic::unwind_safe::RefUnwindSafe + core::marker::Sync, i32>
-             at /rustc/7ecabfaaf1a58172cdd71f7661cf6589ddf7928f/library/std/src/panicking.rs:581:40
-  16: std::panicking::catch_unwind::<i32, &dyn core::ops::function::Fn<(), Output = i32> + core::panic::unwind_safe::RefUnwindSafe + core::marker::Sync>
-             at /rustc/7ecabfaaf1a58172cdd71f7661cf6589ddf7928f/library/std/src/panicking.rs:544:19
-  17: std::panic::catch_unwind::<&dyn core::ops::function::Fn<(), Output = i32> + core::panic::unwind_safe::RefUnwindSafe + core::marker::Sync, i32>
-             at /rustc/7ecabfaaf1a58172cdd71f7661cf6589ddf7928f/library/std/src/panic.rs:359:14
-  18: std::rt::lang_start_internal::{closure#0}
-             at /rustc/7ecabfaaf1a58172cdd71f7661cf6589ddf7928f/library/std/src/rt.rs:175:24
-  19: std::panicking::catch_unwind::do_call::<std::rt::lang_start_internal::{closure#0}, isize>
-             at /rustc/7ecabfaaf1a58172cdd71f7661cf6589ddf7928f/library/std/src/panicking.rs:581:40
-  20: std::panicking::catch_unwind::<isize, std::rt::lang_start_internal::{closure#0}>
-             at /rustc/7ecabfaaf1a58172cdd71f7661cf6589ddf7928f/library/std/src/panicking.rs:544:19
-  21: std::panic::catch_unwind::<std::rt::lang_start_internal::{closure#0}, isize>
-             at /rustc/7ecabfaaf1a58172cdd71f7661cf6589ddf7928f/library/std/src/panic.rs:359:14
-  22: std::rt::lang_start_internal
-             at /rustc/7ecabfaaf1a58172cdd71f7661cf6589ddf7928f/library/std/src/rt.rs:171:5
-  23: main
-  24: <unknown>
-  25: __libc_start_main
-  26: <unknown>
-    Checking bitflags v2.10.0
-    Checking x86_64 v0.15.4
+   0.194575251s  INFO prepare_target{force=false package_id=nexus_kernel v0.1.0 (/home/nevin/nexus_os/nexus_kernel) target="nexus_kernel"}: cargo::core::compiler::fingerprint: stale: changed "/home/nevin/nexus_os/nexus_kernel/src/task/keyboard.rs"
+   0.194634757s  INFO prepare_target{force=false package_id=nexus_kernel v0.1.0 (/home/nevin/nexus_os/nexus_kernel) target="nexus_kernel"}: cargo::core::compiler::fingerprint:           (vs) "/home/nevin/nexus_os/target/debug/.fingerprint/nexus_kernel-2589b34fda1ed74d/dep-bin-nexus_kernel"
+   0.194650960s  INFO prepare_target{force=false package_id=nexus_kernel v0.1.0 (/home/nevin/nexus_os/nexus_kernel) target="nexus_kernel"}: cargo::core::compiler::fingerprint:                FileTime { seconds: 1767552307, nanos: 908932489 } < FileTime { seconds: 1767552331, nanos: 172501088 }
+   0.194793440s  INFO prepare_target{force=false package_id=nexus_kernel v0.1.0 (/home/nevin/nexus_os/nexus_kernel) target="nexus_kernel"}: cargo::core::compiler::fingerprint: fingerprint dirty for nexus_kernel v0.1.0 (/home/nevin/nexus_os/nexus_kernel)/Check { test: false }/TargetInner { name: "nexus_kernel", doc: true, ..: with_path("/home/nevin/nexus_os/nexus_kernel/src/main.rs", Edition2024) }
+   0.194851269s  INFO prepare_target{force=false package_id=nexus_kernel v0.1.0 (/home/nevin/nexus_os/nexus_kernel) target="nexus_kernel"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleItem(ChangedFile { reference: "/home/nevin/nexus_os/target/debug/.fingerprint/nexus_kernel-2589b34fda1ed74d/dep-bin-nexus_kernel", reference_mtime: FileTime { seconds: 1767552307, nanos: 908932489 }, stale: "/home/nevin/nexus_os/nexus_kernel/src/task/keyboard.rs", stale_mtime: FileTime { seconds: 1767552331, nanos: 172501088 } }))
     Checking nexus_kernel v0.1.0 (/home/nevin/nexus_os/nexus_kernel)
 error: could not compile `nexus_kernel` (bin "nexus_kernel" test) due to 1 previous error
 warning: build failed, waiting for other jobs to finish...
-error: could not compile `nexus_kernel` (bin "nexus_kernel") due to 1 previous error

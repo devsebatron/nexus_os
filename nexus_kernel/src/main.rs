@@ -1,15 +1,24 @@
 #![no_std]
 #![no_main]
+#![feature(abi_x86_interrupt)]
 
-mod logger;
+extern crate alloc;
 
+use alloc::{boxed::Box, vec::Vec};
 use bootloader_api::config::Mapping;
 use bootloader_api::{BootInfo, entry_point};
 use core::panic::PanicInfo;
 use lazy_static::lazy_static;
 use spin::Mutex;
+use x86_64::VirtAddr;
 
 use logger::FrameBufferWriter;
+
+mod allocator;
+mod interrupts;
+mod logger;
+mod memory;
+mod task;
 
 pub static BOOTLOADER_CONFIG: bootloader_api::BootloaderConfig = {
     let mut config = bootloader_api::BootloaderConfig::new_default();
@@ -57,9 +66,50 @@ fn kernel_main(boot_info: &'static mut BootInfo) -> ! {
     println!("Hello NexusOS!");
     println!("We are back in text mode, but now with PIXELS!");
 
+    let phys_mem_offset = VirtAddr::new(boot_info.physical_memory_offset.into_option().unwrap());
+    println!("Physical memory offset: {:?}", phys_mem_offset);
+
+    println!("Initializing mapper...");
+    let mut mapper = unsafe { memory::init(phys_mem_offset) };
+    println!("Mapper initialized.");
+
+    println!("Initializing frame allocator...");
+    let mut frame_allocator =
+        unsafe { memory::BootInfoFrameAllocator::init(&boot_info.memory_regions) };
+    println!("Frame allocator initialized.");
+
+    println!("Initializing heap...");
+    allocator::init_heap(&mut mapper, &mut frame_allocator).expect("heap initialization failed");
+    println!("Heap initialized.");
+
+    let heap_value = Box::new(41);
+    println!("heap_value at {:p}", heap_value);
+
+    let mut vec = Vec::new();
+    for i in 0..500 {
+        vec.push(i);
+    }
+    println!("vec at {:p}", vec.as_slice());
+
+    println!("Heap verification successful!");
+
+    println!("Heap verification successful!");
+
+    init(); // Initialize IDT and PICs
+
+    let mut executor = task::simple_executor::SimpleExecutor::new();
+    executor.spawn(task::Task::new(task::keyboard::print_keypresses()));
+    executor.run();
+
     loop {
         x86_64::instructions::hlt();
     }
+}
+
+fn init() {
+    interrupts::init_idt();
+    unsafe { interrupts::PICS.lock().initialize() };
+    x86_64::instructions::interrupts::enable();
 }
 
 /// This function is called on panic.
