@@ -1,7 +1,4 @@
-use std::{
-    env,
-    process::{self, Command},
-};
+use std::{env, process::Command};
 
 fn main() {
     let kernel_path = env::current_dir().unwrap().join("nexus_kernel");
@@ -9,7 +6,7 @@ fn main() {
     // Build kernel
     let status = Command::new("cargo")
         .current_dir(&kernel_path)
-        .args(&["build", "--target", "x86_64-unknown-none"])
+        .args(["build", "--target", "x86_64-unknown-none"])
         .status()
         .unwrap();
 
@@ -34,7 +31,7 @@ fn main() {
         .parent()
         .unwrap()
         .join("target/x86_64-unknown-none/debug/bootimage.bin");
-    let mut boot = bootloader::BiosBoot::new(&kernel_binary);
+    let boot = bootloader::BiosBoot::new(&kernel_binary);
     boot.create_disk_image(&image_path).unwrap();
 
     // Run QEMU
