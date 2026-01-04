@@ -4,7 +4,7 @@
 mod logger;
 
 use bootloader_api::config::Mapping;
-use bootloader_api::{entry_point, BootInfo};
+use bootloader_api::{BootInfo, entry_point};
 use core::panic::PanicInfo;
 use lazy_static::lazy_static;
 use spin::Mutex;
