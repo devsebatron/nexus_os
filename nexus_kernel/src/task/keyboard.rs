@@ -14,7 +14,7 @@ pub(crate) static WAKER: AtomicWaker = AtomicWaker::new();
 /// Must not block or allocate.
 pub(crate) fn add_scancode(scancode: u8) {
     if let Ok(queue) = SCANCODE_QUEUE.try_get() {
-        if let Err(_) = queue.push(scancode) {
+        if queue.push(scancode).is_err() {
             // queue full; discard scancode
             // outputting a warning is difficult in interrupt context
         } else {
@@ -51,7 +51,7 @@ impl Stream for ScancodeStream {
             return Poll::Ready(Some(scancode));
         }
 
-        WAKER.register(&cx.waker());
+        WAKER.register(cx.waker());
         match queue.pop() {
             Some(scancode) => {
                 WAKER.take();

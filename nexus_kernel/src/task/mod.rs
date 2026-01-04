@@ -10,6 +10,7 @@ use core::{
 };
 
 pub struct Task {
+    #[allow(dead_code)]
     id: TaskId,
     future: Pin<Box<dyn Future<Output = ()> + Send>>,
 }

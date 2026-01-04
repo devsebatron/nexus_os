@@ -10,6 +10,26 @@ When you build an application for NexusOS ("The Unikernel"), the compiler pulls 
 - This results in extremely small, cache-friendly binaries.
 - **Zero Context Switches**: Since there are no rings to cross (everything runs in Ring-0) and no other processes to schedule, the concept of a context switch is eliminated.
 
+## The Async Hypervisor
+
+nexusOS abandons the traditional Thread/Stack model in favor of a **Revolutionary Async-First Cooperative Multitasking** system.
+
+### Tasks != Threads
+- In traditional OSes, every thread gets a large (4KiB-2MiB) stack. This wastes memory and makes switching expensive.
+- In NexusOS, a **Task** is simply a Rust `Future`. It is a state machine compiled down to a struct. It has **no stack** of its own (it shares the single kernel stack).
+- **Cost**: Spawning a task is as cheap as allocating a small struct (bytes). Context switching is a function call (`poll()`).
+
+### Cooperative Scheduling
+- The **Executor** maintains a queue of tasks.
+- It polls tasks in a round-robin fashion.
+- Tasks **yield** voluntarily when waiting for events (I/O, timers) by returning `Poll::Pending`.
+- This eliminates the need for expensive pre-emptive timer interrupts and context saving.
+
+### Hybrid Interrupt Model
+- **Hardware Interrupts**: Still exist (e.g., Keyboard).
+- **Behavior**: The Interrupt Service Routine (ISR) does *minimal* work. It pushes data to a lock-free queue, wakes the specific Task via an `AtomicWaker`, and returns.
+- **Latency**: This ensures the Executor picks up the data instantly, reconciling the determinism of polling with the responsiveness of interrupts.
+
 ## The "Cortex" Engine
 
 Cortex is the intelligence layer embedded directly above the hypervisor. It is designed to run Large Language Models (LLMs) effectively on standard CPUs.

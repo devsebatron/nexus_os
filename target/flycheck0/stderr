@@ -1,15 +1,54 @@
 warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
 package:   /home/nevin/nexus_os/nexus_kernel/Cargo.toml
 workspace: /home/nevin/nexus_os/Cargo.toml
-   0.199354977s  INFO prepare_target{force=false package_id=nexus_boot v0.1.0 (/home/nevin/nexus_os/nexus_boot) target="nexus_boot"}: cargo::core::compiler::fingerprint: stale: changed "/home/nevin/nexus_os/nexus_boot/src/main.rs"
-   0.199427943s  INFO prepare_target{force=false package_id=nexus_boot v0.1.0 (/home/nevin/nexus_os/nexus_boot) target="nexus_boot"}: cargo::core::compiler::fingerprint:           (vs) "/home/nevin/nexus_os/target/debug/.fingerprint/nexus_boot-30db39e053110757/dep-test-bin-nexus_boot"
-   0.199441876s  INFO prepare_target{force=false package_id=nexus_boot v0.1.0 (/home/nevin/nexus_os/nexus_boot) target="nexus_boot"}: cargo::core::compiler::fingerprint:                FileTime { seconds: 1767543237, nanos: 307208961 } < FileTime { seconds: 1767550335, nanos: 433935528 }
-   0.200189967s  INFO prepare_target{force=false package_id=nexus_boot v0.1.0 (/home/nevin/nexus_os/nexus_boot) target="nexus_boot"}: cargo::core::compiler::fingerprint: fingerprint dirty for nexus_boot v0.1.0 (/home/nevin/nexus_os/nexus_boot)/Check { test: true }/TargetInner { name: "nexus_boot", doc: true, ..: with_path("/home/nevin/nexus_os/nexus_boot/src/main.rs", Edition2024) }
-   0.200266508s  INFO prepare_target{force=false package_id=nexus_boot v0.1.0 (/home/nevin/nexus_os/nexus_boot) target="nexus_boot"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleItem(ChangedFile { reference: "/home/nevin/nexus_os/target/debug/.fingerprint/nexus_boot-30db39e053110757/dep-test-bin-nexus_boot", reference_mtime: FileTime { seconds: 1767543237, nanos: 307208961 }, stale: "/home/nevin/nexus_os/nexus_boot/src/main.rs", stale_mtime: FileTime { seconds: 1767550335, nanos: 433935528 } }))
-   0.208721278s  INFO prepare_target{force=false package_id=nexus_boot v0.1.0 (/home/nevin/nexus_os/nexus_boot) target="nexus_boot"}: cargo::core::compiler::fingerprint: stale: changed "/home/nevin/nexus_os/nexus_boot/src/main.rs"
-   0.208766195s  INFO prepare_target{force=false package_id=nexus_boot v0.1.0 (/home/nevin/nexus_os/nexus_boot) target="nexus_boot"}: cargo::core::compiler::fingerprint:           (vs) "/home/nevin/nexus_os/target/debug/.fingerprint/nexus_boot-0d4dbc23d84026da/dep-bin-nexus_boot"
-   0.208773528s  INFO prepare_target{force=false package_id=nexus_boot v0.1.0 (/home/nevin/nexus_os/nexus_boot) target="nexus_boot"}: cargo::core::compiler::fingerprint:                FileTime { seconds: 1767549964, nanos: 851016232 } < FileTime { seconds: 1767550335, nanos: 433935528 }
-   0.208839253s  INFO prepare_target{force=false package_id=nexus_boot v0.1.0 (/home/nevin/nexus_os/nexus_boot) target="nexus_boot"}: cargo::core::compiler::fingerprint: fingerprint dirty for nexus_boot v0.1.0 (/home/nevin/nexus_os/nexus_boot)/Check { test: false }/TargetInner { name: "nexus_boot", doc: true, ..: with_path("/home/nevin/nexus_os/nexus_boot/src/main.rs", Edition2024) }
-   0.208851445s  INFO prepare_target{force=false package_id=nexus_boot v0.1.0 (/home/nevin/nexus_os/nexus_boot) target="nexus_boot"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleItem(ChangedFile { reference: "/home/nevin/nexus_os/target/debug/.fingerprint/nexus_boot-0d4dbc23d84026da/dep-bin-nexus_boot", reference_mtime: FileTime { seconds: 1767549964, nanos: 851016232 }, stale: "/home/nevin/nexus_os/nexus_boot/src/main.rs", stale_mtime: FileTime { seconds: 1767550335, nanos: 433935528 } }))
-    Checking nexus_boot v0.1.0 (/home/nevin/nexus_os/nexus_boot)
-    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.34s
+   0.162837951s  INFO prepare_target{force=false package_id=nexus_kernel v0.1.0 (/home/nevin/nexus_os/nexus_kernel) target="nexus_kernel"}: cargo::core::compiler::fingerprint: fingerprint error for nexus_kernel v0.1.0 (/home/nevin/nexus_os/nexus_kernel)/Check { test: true }/TargetInner { name: "nexus_kernel", doc: true, ..: with_path("/home/nevin/nexus_os/nexus_kernel/src/main.rs", Edition2024) }
+   0.162913661s  INFO prepare_target{force=false package_id=nexus_kernel v0.1.0 (/home/nevin/nexus_os/nexus_kernel) target="nexus_kernel"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/nevin/nexus_os/target/debug/.fingerprint/nexus_kernel-93b577045c936beb/test-bin-nexus_kernel`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: cargo_util::paths::read_bytes
+   1: cargo_util::paths::read
+   2: cargo::core::compiler::fingerprint::_compare_old_fingerprint
+   3: cargo::core::compiler::fingerprint::prepare_target
+   4: cargo::core::compiler::compile
+   5: <cargo::core::compiler::build_runner::BuildRunner>::compile
+   6: cargo::ops::cargo_compile::compile_ws
+   7: cargo::ops::cargo_compile::compile_with_exec
+   8: cargo::ops::cargo_compile::compile
+   9: cargo::commands::check::exec
+  10: <cargo::cli::Exec>::exec
+  11: cargo::main
+  12: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  13: std::rt::lang_start::<()>::{closure#0}
+  14: <&dyn core::ops::function::Fn<(), Output = i32> + core::panic::unwind_safe::RefUnwindSafe + core::marker::Sync as core::ops::function::FnOnce<()>>::call_once
+             at /rustc/7ecabfaaf1a58172cdd71f7661cf6589ddf7928f/library/core/src/ops/function.rs:287:21
+  15: std::panicking::catch_unwind::do_call::<&dyn core::ops::function::Fn<(), Output = i32> + core::panic::unwind_safe::RefUnwindSafe + core::marker::Sync, i32>
+             at /rustc/7ecabfaaf1a58172cdd71f7661cf6589ddf7928f/library/std/src/panicking.rs:581:40
+  16: std::panicking::catch_unwind::<i32, &dyn core::ops::function::Fn<(), Output = i32> + core::panic::unwind_safe::RefUnwindSafe + core::marker::Sync>
+             at /rustc/7ecabfaaf1a58172cdd71f7661cf6589ddf7928f/library/std/src/panicking.rs:544:19
+  17: std::panic::catch_unwind::<&dyn core::ops::function::Fn<(), Output = i32> + core::panic::unwind_safe::RefUnwindSafe + core::marker::Sync, i32>
+             at /rustc/7ecabfaaf1a58172cdd71f7661cf6589ddf7928f/library/std/src/panic.rs:359:14
+  18: std::rt::lang_start_internal::{closure#0}
+             at /rustc/7ecabfaaf1a58172cdd71f7661cf6589ddf7928f/library/std/src/rt.rs:175:24
+  19: std::panicking::catch_unwind::do_call::<std::rt::lang_start_internal::{closure#0}, isize>
+             at /rustc/7ecabfaaf1a58172cdd71f7661cf6589ddf7928f/library/std/src/panicking.rs:581:40
+  20: std::panicking::catch_unwind::<isize, std::rt::lang_start_internal::{closure#0}>
+             at /rustc/7ecabfaaf1a58172cdd71f7661cf6589ddf7928f/library/std/src/panicking.rs:544:19
+  21: std::panic::catch_unwind::<std::rt::lang_start_internal::{closure#0}, isize>
+             at /rustc/7ecabfaaf1a58172cdd71f7661cf6589ddf7928f/library/std/src/panic.rs:359:14
+  22: std::rt::lang_start_internal
+             at /rustc/7ecabfaaf1a58172cdd71f7661cf6589ddf7928f/library/std/src/rt.rs:171:5
+  23: main
+  24: <unknown>
+  25: __libc_start_main
+  26: <unknown>
+   0.194575251s  INFO prepare_target{force=false package_id=nexus_kernel v0.1.0 (/home/nevin/nexus_os/nexus_kernel) target="nexus_kernel"}: cargo::core::compiler::fingerprint: stale: changed "/home/nevin/nexus_os/nexus_kernel/src/task/keyboard.rs"
+   0.194634757s  INFO prepare_target{force=false package_id=nexus_kernel v0.1.0 (/home/nevin/nexus_os/nexus_kernel) target="nexus_kernel"}: cargo::core::compiler::fingerprint:           (vs) "/home/nevin/nexus_os/target/debug/.fingerprint/nexus_kernel-2589b34fda1ed74d/dep-bin-nexus_kernel"
+   0.194650960s  INFO prepare_target{force=false package_id=nexus_kernel v0.1.0 (/home/nevin/nexus_os/nexus_kernel) target="nexus_kernel"}: cargo::core::compiler::fingerprint:                FileTime { seconds: 1767552307, nanos: 908932489 } < FileTime { seconds: 1767552331, nanos: 172501088 }
+   0.194793440s  INFO prepare_target{force=false package_id=nexus_kernel v0.1.0 (/home/nevin/nexus_os/nexus_kernel) target="nexus_kernel"}: cargo::core::compiler::fingerprint: fingerprint dirty for nexus_kernel v0.1.0 (/home/nevin/nexus_os/nexus_kernel)/Check { test: false }/TargetInner { name: "nexus_kernel", doc: true, ..: with_path("/home/nevin/nexus_os/nexus_kernel/src/main.rs", Edition2024) }
+   0.194851269s  INFO prepare_target{force=false package_id=nexus_kernel v0.1.0 (/home/nevin/nexus_os/nexus_kernel) target="nexus_kernel"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleItem(ChangedFile { reference: "/home/nevin/nexus_os/target/debug/.fingerprint/nexus_kernel-2589b34fda1ed74d/dep-bin-nexus_kernel", reference_mtime: FileTime { seconds: 1767552307, nanos: 908932489 }, stale: "/home/nevin/nexus_os/nexus_kernel/src/task/keyboard.rs", stale_mtime: FileTime { seconds: 1767552331, nanos: 172501088 } }))
+    Checking nexus_kernel v0.1.0 (/home/nevin/nexus_os/nexus_kernel)
+error: could not compile `nexus_kernel` (bin "nexus_kernel" test) due to 1 previous error
+warning: build failed, waiting for other jobs to finish...
