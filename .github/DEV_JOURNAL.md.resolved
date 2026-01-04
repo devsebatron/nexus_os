@@ -1,0 +1,181 @@
+# Developer Journal - NexusOS
+
+**Milestone 1: The Awakening**
+
+This journal chronicles the engineering decisions, toolchain setup, and code implementation for NexusOS, a specialized "Hyper-Unikernel" designed for high-performance AI integration.
+
+## 1. The Vision
+
+NexusOS is not a Linux distribution. It is a **unikernel** written from scratch in Rust, designed to run directly on hardware (bare metal) to eliminate the overhead of general-purpose operating systems.
+
+Our architecture consists of three pillars:
+*   **NexusOS**: The bare-metal kernel.
+*   **nexus_cortex**: The AI integration layer.
+*   **nexus_memex**: The semantic storage engine.
+
+We are building this without the Rust Standard Library (`no_std`), meaning we have no access to `std::cout`, threads, or heap allocation until we build them ourselves.
+
+## 2. Environment Setup (The "Antigravity" Stack)
+
+To reproduce this environment, you need a Linux system (or WSL2) and the Rust nightly toolchain.
+
+### Tools & Requirements
+*   **WSL2 (Ubuntu 24.04)**: Our build host.
+*   **Rust Nightly**: Required for experimental bare-metal features (e.g., `abi_x86_interrupt`, `naked_functions`).
+*   **QEMU**: The machine emulator used to run our kernel.
+*   **Crate Dependencies**:
+    *   `bootloader_api` (v0.11): Handles the transition from BIOS/UEFI to our Rust code.
+    *   `noto-sans-mono-bitmap`: Provides fonts for the graphical framebuffer.
+
+### Quick Start Commands
+```bash
+# 1. Install System Dependencies
+sudo apt install build-essential qemu-system-x86
+
+# 2. Setup Rust Nightly
+rustup toolchain install nightly
+rustup component add rust-src llvm-tools-preview
+
+# 3. Create Custom Runner (nexus_boot)
+# We implemented a dedicated crate `nexus_boot` to handle build and run logic.
+```
+
+## 3. Repository Governance
+
+We follow a **Trunk-Based Development** strategy to ensure high velocity.
+*   **Main Branch**: Always deployable.
+*   **CI Pipeline**: Configured in [.github/workflows/ci.yml](file:///home/nevin/nexus_os/.github/workflows/ci.yml). Runs `cargo build` and `cargo test` on every push to verify the code compiles on the nightly toolchain.
+
+## 4. Engineering Milestone 1 (The Awakening)
+
+### The `no_std` Decision
+Operating systems cannot rely on an operating system. We disabled the standard library in [nexus_kernel/src/main.rs](file:///home/nevin/nexus_os/nexus_kernel/src/main.rs):
+
+```rust
+#![no_std]  // Don't link the Rust Standard Library
+#![no_main] // Disable all Rust-level entry points
+```
+
+### The Panic Handler
+In `no_std`, we must define how the kernel reacts to crashes. Our handler prints the error and freezes the machine:
+
+```rust
+#[panic_handler]
+fn panic(info: &PanicInfo) -> ! {
+    println!("{}", info); // Uses our global logger
+    loop {}
+}
+```
+
+### Evolution: From VGA to Framebuffer
+Initially, we used the legacy VGA Text Buffer at address `0xb8000`. However, modern bootloaders (Bootloader v0.11) initialize the system in a high-resolution **Graphical Framebuffer** mode.
+
+To support this, we built a custom logging architecture:
+1.  **[nexus_kernel/src/logger.rs](file:///home/nevin/nexus_os/nexus_kernel/src/logger.rs)**: A driver that writes pixels directly to the video memory.
+2.  **Bitmap Fonts**: integrated `noto-sans-mono-bitmap` to render text pixel-by-pixel.
+3.  **Global Interface**: Restored `print!` and `println!` macros to transparently use this graphical writer.
+
+### Boot Configuration
+We utilize a **Workspace Structure** to separate concerns:
+*   **`nexus_kernel`**: The kernel binary (runs on QEMU).
+*   **`nexus_boot`**: The host builder (runs on Linux).
+
+The `nexus_boot` crate acts as our build system. It uses the `bootloader` crate to package the kernel into a bootable BIOS/UEFI disk image.
+
+## 5. How to Run (The "Magic" Command)
+
+We consolidated the build and run steps into a single command using our runner crate:
+
+```bash
+cargo run --package nexus_boot
+```
+
+**Expected Output:**
+A QEMU window will verify the boot process:
+> Hello NexusOS!
+> We are back in text mode, but now with PIXELS!
+
+The screen will display high-quality graphical text on a dark background.
+
+## 6. Current Status & Next Steps
+
+**Milestone 1 Status**: ✅ **Complete**
+*   Kernel boots.
+*   Graphical Framebuffer is active.
+*   Global `println!` is working.
+
+**Next Objective: Milestone 2**
+*   **Memory Management**: Implement a Physical Frame Allocator and Paging to manage RAM.
+
+🛠️ Challenges, Debugging, & Resolutions Report
+Here is a detailed breakdown of the technical hurdles we faced during Milestone 1, how we investigated them, and the specific fixes applied.
+
+1. The "Dual Identity" Panic
+Challenge: error[E0152]: duplicate lang item 'panic_impl' As soon as we added dependencies, the compiler complained that the panic handler was defined twice: once by us, and once by the Standard Library (std).
+
+Debugging: We realized that some dependencies (like early versions of bootloader or lazy_static) implicitly linked std unless told otherwise.
+Resolution:
+Enforced #![no_std] in 
+main.rs
+.
+Used default-features = false for dependencies like lazy_static.
+Explicitly defined panic = "abort" in 
+Cargo.toml
+ to prevent unwinding machinery (which requires an OS shim).
+2. The PageAlreadyMapped Panic
+Challenge: panicked at 'failed to map page... PageAlreadyMapped' When running with bootloader v0.9, the kernel would crash immediately upon boot with a memory mapping error.
+
+Debugging:
+Found this is a known issue with bootloader v0.9 on newer Rust Nightly versions due to layout changes.
+This was a "dead end" usage pattern; modern bare-metal Rust has moved on.
+Resolution:
+Major Refactor: We decided to migrate to the maintained Bootloader v0.11.
+This required splitting the project into a Workspace: nexus_kernel (the OS) and nexus_boot (the builder/runner).
+3. The Runner "Ghost Binary"
+Challenge: nexus_boot panicked: No such file or directory After setting up the workspace, our custom runner (nexus_boot) couldn't find the compiled kernel binary to wrap it into a disk image.
+
+Debugging:
+We used env::current_dir() in the runner code.
+In a workspace, the target/ directory moves to the workspace root, not inside the kernel package.
+Resolution:
+Updated 
+nexus_boot/src/main.rs
+ to look in the parent directory's target folder:
+rust
+let kernel_binary = kernel_path.parent().unwrap().join("target/...");
+4. The BootloaderConfig Typo hunt
+Challenge: failed to resolve: could not find BootLoaderConfig While configuring the bootloader, the compiler threw "type not found" errors.
+
+Debugging:
+We initially guessed the struct name as BootLoaderConfig.
+Then we hit an error that 
+::new()
+ didn't exist.
+Resolution:
+Corrected the name to BootloaderConfig (lowercase 'l').
+Found the correct constructor in the documentation: BootloaderConfig::new_default().
+5. The Triple Fault Loop (VGA Crash)
+Challenge: QEMU would start, show "SeaBIOS", and then continuously reboot (loop). This is a classic "Triple Fault"—the CPU encountered an exception it couldn't handle (accessing invalid memory).
+
+Debugging:
+We knew bootloader v0.11 doesn't identity-map memory (virtual address 0xb8000 != physical address 0xb8000).
+Our old 0xb8000 pointer was pointing to garbage (or unmapped) memory.
+Resolution:
+Updated 
+main.rs
+ to request Mapping::Dynamic in the config.
+Updated 
+vga_buffer.rs
+ to add a PHYSICAL_MEMORY_OFFSET to the VGA address at runtime.
+6. The "Invisible" Screen
+Challenge: The kernel ran without crashing, but the screen was grey and empty. No text appeared.
+
+Debugging:
+Inspecting the BootInfo logs revealed the bootloader had switched to a High-Res Framebuffer (1280x720).
+The legacy VGA Text Mode hardware (which we were writing to) is disabled in this graphical mode. We were effectively "writing behind the wallpaper."
+Resolution:
+Visual Proof: We first wrote a loop to fill the framebuffer with a solid color, proving we had control.
+Font Renderer: We implemented a "Software VGA" driver (
+src/logger.rs
+) using the noto-sans-mono-bitmap crate to manually draw pixels for every character.
+Current State: The system is now stable. It compiles cleanly, handles memory correctly for this stage, and renders high-quality text to a high-resolution graphical framebuffer.

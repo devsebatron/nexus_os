@@ -1,0 +1,193 @@
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Updating crates.io index
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Updating crates.io index
+  Installing bootloader-x86_64-bios-stage-3 v0.11.13
+    Blocking waiting for file lock on package cache
+    Updating crates.io index
+  Installing bootloader-x86_64-bios-stage-2 v0.11.13
+    Blocking waiting for file lock on package cache
+    Updating crates.io index
+  Installing bootloader-x86_64-bios-stage-4 v0.11.13
+    Blocking waiting for file lock on package cache
+    Updating crates.io index
+  Installing bootloader-x86_64-uefi v0.11.13
+    Blocking waiting for file lock on package cache
+    Updating crates.io index
+  Installing bootloader-x86_64-bios-boot-sector v0.11.13
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Updating crates.io index
+    Blocking waiting for file lock on package cache
+    Updating crates.io index
+    Blocking waiting for file lock on package cache
+    Updating crates.io index
+    Blocking waiting for file lock on package cache
+    Updating crates.io index
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+warning: package `atomic-polyfill v0.1.11` in Cargo.lock is yanked in registry `crates-io`, consider running without --locked
+warning: package `critical-section v1.1.1` in Cargo.lock is yanked in registry `crates-io`, consider running without --locked
+    Blocking waiting for file lock on package cache
+warning: package `atomic-polyfill v0.1.11` in Cargo.lock is yanked in registry `crates-io`, consider running without --locked
+warning: package `critical-section v1.1.1` in Cargo.lock is yanked in registry `crates-io`, consider running without --locked
+    Blocking waiting for file lock on package cache
+    Updating crates.io index
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Updating crates.io index
+    Blocking waiting for file lock on package cache
+    Updating crates.io index
+    Updating crates.io index
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Updating crates.io index
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+   Compiling compiler_builtins v0.1.160 (/home/nevin/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/compiler-builtins/compiler-builtins)
+   Compiling core v0.0.0 (/home/nevin/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core)
+   Compiling bootloader-x86_64-bios-boot-sector v0.11.13
+   Compiling compiler_builtins v0.1.160 (/home/nevin/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/compiler-builtins/compiler-builtins)
+   Compiling core v0.0.0 (/home/nevin/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core)
+   Compiling bootloader-x86_64-bios-stage-3 v0.11.13
+   Compiling compiler_builtins v0.1.160 (/home/nevin/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/compiler-builtins/compiler-builtins)
+   Compiling core v0.0.0 (/home/nevin/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core)
+   Compiling bootloader-x86_64-bios-stage-2 v0.11.13
+   Compiling compiler_builtins v0.1.160 (/home/nevin/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/compiler-builtins/compiler-builtins)
+   Compiling core v0.0.0 (/home/nevin/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core)
+   Compiling compiler_builtins v0.1.160 (/home/nevin/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/compiler-builtins/compiler-builtins)
+   Compiling proc-macro2 v1.0.63
+   Compiling core v0.0.0 (/home/nevin/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core)
+   Compiling quote v1.0.29
+   Compiling proc-macro2 v1.0.63
+   Compiling unicode-ident v1.0.10
+   Compiling autocfg v1.1.0
+   Compiling semver v1.0.17
+   Compiling syn v1.0.109
+   Compiling unicode-ident v1.0.10
+   Compiling autocfg v1.1.0
+   Compiling quote v1.0.29
+   Compiling rustversion v1.0.13
+   Compiling lock_api v0.4.10
+   Compiling semver v1.0.17
+   Compiling serde v1.0.166
+   Compiling lock_api v0.4.10
+   Compiling rustc_version v0.4.0
+   Compiling syn v2.0.23
+   Compiling x86 v0.52.0
+   Compiling heapless v0.7.16
+   Compiling syn v2.0.23
+   Compiling bootloader_api v0.11.13
+   Compiling serde v1.0.166
+   Compiling rustversion v1.0.13
+   Compiling rustc_version v0.4.0
+   Compiling x86 v0.52.0
+   Compiling bootloader_api v0.11.13
+   Compiling bootloader-x86_64-bios-stage-4 v0.11.13
+   Compiling heapless v0.7.16
+   Compiling serde_derive v1.0.166
+   Compiling serde_derive v1.0.166
+   Compiling ptr_meta_derive v0.2.0
+   Compiling uefi-macros v0.11.0
+   Compiling byteorder v1.4.3
+   Compiling bootloader-x86_64-bios-common v0.11.13
+   Compiling mbr-nostd v0.1.0
+   Compiling bootloader-x86_64-bios-common v0.11.13
+   Compiling noto-sans-mono-bitmap v0.1.6
+    Finished `stage-1` profile [optimized] target(s) in 44.52s
+  Installing /home/nevin/nexus_os/target/debug/build/bootloader-3f990d9cace17bac/out/bin/bootloader-x86_64-bios-boot-sector
+   Installed package `bootloader-x86_64-bios-boot-sector v0.11.13` (executable `bootloader-x86_64-bios-boot-sector`)
+warning: be sure to add `/home/nevin/nexus_os/target/debug/build/bootloader-3f990d9cace17bac/out/bin` to your PATH to be able to run the installed binaries
+   Compiling scopeguard v1.1.0
+   Compiling scopeguard v1.1.0
+   Compiling bit_field v0.10.2
+   Compiling bitflags v1.3.2
+   Compiling raw-cpuid v10.7.0
+   Compiling bitflags v2.3.3
+   Compiling bitflags v1.3.2
+   Compiling bit_field v0.10.2
+   Compiling rand_core v0.6.4
+   Compiling raw-cpuid v10.7.0
+   Compiling byteorder v1.4.3
+   Compiling hash32 v0.2.1
+   Compiling spin v0.9.8
+    Finished `stage-2` profile [optimized] target(s) in 49.00s
+  Installing /home/nevin/nexus_os/target/debug/build/bootloader-3f990d9cace17bac/out/bin/bootloader-x86_64-bios-stage-2
+   Installed package `bootloader-x86_64-bios-stage-2 v0.11.13` (executable `bootloader-x86_64-bios-stage-2`)
+warning: be sure to add `/home/nevin/nexus_os/target/debug/build/bootloader-3f990d9cace17bac/out/bin` to your PATH to be able to run the installed binaries
+   Compiling stable_deref_trait v1.2.0
+   Compiling bitflags v2.3.3
+   Compiling zero v0.1.3
+   Compiling conquer-util v0.3.0
+   Compiling byteorder v1.4.3
+   Compiling rand_core v0.6.4
+   Compiling log v0.4.19
+   Compiling volatile v0.4.6
+   Compiling uart_16550 v0.3.2
+   Compiling hash32 v0.2.1
+   Compiling x86_64 v0.15.2
+   Compiling conquer-once v0.3.2
+   Compiling xmas-elf v0.8.0
+   Compiling spin v0.9.8
+   Compiling rand_hc v0.3.2
+   Compiling volatile v0.4.6
+   Compiling bootloader-boot-config v0.11.13
+   Compiling stable_deref_trait v1.2.0
+   Compiling zero v0.1.3
+   Compiling rand v0.8.5
+   Compiling spinning_top v0.2.5
+   Compiling ucs2 v0.3.2
+   Compiling conquer-util v0.3.0
+   Compiling log v0.4.19
+   Compiling ptr_meta v0.2.0
+   Compiling noto-sans-mono-bitmap v0.2.0
+   Compiling usize_conversions v0.2.0
+   Compiling ryu v1.0.14
+   Compiling conquer-once v0.3.2
+   Compiling serde-json-core v0.5.0
+   Compiling xmas-elf v0.8.0
+   Compiling uefi v0.20.0
+   Compiling bootloader-x86_64-common v0.11.13
+   Compiling uart_16550 v0.3.2
+   Compiling x86_64 v0.15.2
+   Compiling bootloader-boot-config v0.11.13
+   Compiling rand v0.8.5
+   Compiling rand_hc v0.3.2
+   Compiling spinning_top v0.2.5
+   Compiling ryu v1.0.14
+   Compiling noto-sans-mono-bitmap v0.2.0
+   Compiling usize_conversions v0.2.0
+   Compiling serde-json-core v0.5.0
+   Compiling rsdp v2.0.0
+   Compiling bootloader-x86_64-bios-common v0.11.13
+   Compiling bootloader-x86_64-common v0.11.13
+   Compiling bootloader-x86_64-uefi v0.11.13
+    Finished `release` profile [optimized] target(s) in 1m 06s
+  Installing /home/nevin/nexus_os/target/debug/build/bootloader-3f990d9cace17bac/out/bin/bootloader-x86_64-uefi.efi
+   Installed package `bootloader-x86_64-uefi v0.11.13` (executable `bootloader-x86_64-uefi.efi`)
+warning: be sure to add `/home/nevin/nexus_os/target/debug/build/bootloader-3f990d9cace17bac/out/bin` to your PATH to be able to run the installed binaries
+    Finished `stage-4` profile [optimized + debuginfo] target(s) in 1m 06s
+  Installing /home/nevin/nexus_os/target/debug/build/bootloader-3f990d9cace17bac/out/bin/bootloader-x86_64-bios-stage-4
+   Installed package `bootloader-x86_64-bios-stage-4 v0.11.13` (executable `bootloader-x86_64-bios-stage-4`)
+warning: be sure to add `/home/nevin/nexus_os/target/debug/build/bootloader-3f990d9cace17bac/out/bin` to your PATH to be able to run the installed binaries
+    Finished `stage-3` profile [optimized + debuginfo] target(s) in 1m 25s
+  Installing /home/nevin/nexus_os/target/debug/build/bootloader-3f990d9cace17bac/out/bin/bootloader-x86_64-bios-stage-3
+   Installed package `bootloader-x86_64-bios-stage-3 v0.11.13` (executable `bootloader-x86_64-bios-stage-3`)
+warning: be sure to add `/home/nevin/nexus_os/target/debug/build/bootloader-3f990d9cace17bac/out/bin` to your PATH to be able to run the installed binaries

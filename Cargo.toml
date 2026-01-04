@@ -1,0 +1,3 @@
+[workspace]
+members = ["nexus_kernel", "nexus_boot"]
+resolver = "2"
