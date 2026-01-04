@@ -4,12 +4,12 @@
 
 ## Overall Progress
 ```
-████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 31/100 (31%)
+██████████████████████████████████████████████████░░░░░░░░░░░░░░░░░░ 50/100 (50%)
 ```
 
 ---
 
-## Current Milestone: M2
+## Current Milestone: M4
 
 ### M1: Core Infrastructure ✅ [COMPLETED]
 
@@ -35,21 +35,21 @@
 
 ---
 
-### M2: The Memory Architect (Allocation)
-- [ ] Parse Multiboot2 Memory Map (Identify free RAM).
-- [ ] Implement Physical Frame Allocator (4KiB chunks).
-- [ ] Implement Virtual Memory (Recursive/Offset Page Tables).
-- [ ] Initialize Heap (Range: `0x4444_4444_0000`).
-- [ ] Implement `GlobalAlloc` trait (Bump Allocator first).
-- [ ] **Verification:** `Box::new(42)` and `Vec::push(1)` do not crash.
+### M2: The Memory Architect (Allocation) ✅ [COMPLETED]
+- [x] Parse Multiboot2 Memory Map (Identify free RAM).
+- [x] Implement Physical Frame Allocator (4KiB chunks).
+- [x] Implement Virtual Memory (Recursive/Offset Page Tables).
+- [x] Initialize Heap (Range: `0x4444_4444_0000`).
+- [x] Implement `GlobalAlloc` trait (Bump Allocator first).
+- [x] **Verification:** `Box::new(42)` and `Vec::push(1)` do not crash.
 
-### M3: The Hypervisor Core (Multitasking)
-- [ ] Create `Task` struct (Future polling logic).
-- [ ] Implement Simple Executor (Round-Robin loop).
-- [ ] Define `Waker` logic to handle sleeping tasks.
-- [ ] Set up IDT (Interrupt Descriptor Table).
-- [ ] Enable Hardware Interrupts (PIC/APIC) for Keyboard.
-- [ ] **Verification:** Two async print tasks run concurrently.
+### M3: The Hypervisor Core (Multitasking) ✅ [COMPLETED]
+- [x] Create `Task` struct (Future polling logic).
+- [x] Implement Simple Executor (Round-Robin loop).
+- [x] Define `Waker` logic to handle sleeping tasks.
+- [x] Set up IDT (Interrupt Descriptor Table).
+- [x] Enable Hardware Interrupts (PIC/APIC) for Keyboard.
+- [x] **Verification:** Two async print tasks run concurrently.
 
 ### M4: The Cortex Integration (AI)
 - [ ] Enable CPU Features (SSE/AVX) in `x86_64` config.
