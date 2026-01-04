@@ -1,0 +1,10 @@
+[target.x86_64-unknown-none]
+rustflags = [
+    "-C",
+    "target-cpu=x86-64",
+    "-C",
+    "target-feature=-sse,-sse2,-avx,-avx2", # Disable global vectorization
+]
+
+[build]
+target = "x86_64-unknown-none"
