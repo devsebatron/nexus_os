@@ -57,12 +57,16 @@ fn kernel_main(boot_info: &'static mut BootInfo) -> ! {
     println!("Hello NexusOS!");
     println!("We are back in text mode, but now with PIXELS!");
 
-    loop {}
+    loop {
+        x86_64::instructions::hlt();
+    }
 }
 
 /// This function is called on panic.
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {
     println!("{}", info);
-    loop {}
+    loop {
+        x86_64::instructions::hlt();
+    }
 }
