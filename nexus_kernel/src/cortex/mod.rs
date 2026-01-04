@@ -1,3 +1,12 @@
+//! Cortex AI Inference Engine
+//!
+//! This module implements the "Cortex" layer of NexusOS, providing
+//! AI inference capabilities directly within the kernel.
+//!
+//! # Features
+//! - Simulated 1.58-bit BitNet quantization
+//! - AVX-accelerated Dot Product (simulated via intrinsics)
+//! - Safe context switching via `without_interrupts`
 use alloc::format;
 use alloc::string::String;
 use x86_64::instructions::interrupts;

@@ -94,4 +94,5 @@ This will:
 
 **Interacting:**
 - The OS now supports **Async Multitasking**.
+- **Cortex AI**: The kernel now performs simulated 1.58-bit matrix multiplication using AVX instructions.
 - Type on your keyboard to see scancodes processed asynchronously on the screen.

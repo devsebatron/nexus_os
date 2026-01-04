@@ -1,7 +1,7 @@
 use bootloader_api::info::{FrameBufferInfo, PixelFormat};
 use core::fmt;
 use noto_sans_mono_bitmap::{
-    FontWeight, RasterHeight, RasterizedChar, get_raster, get_raster_width,
+    get_raster, get_raster_width, FontWeight, RasterHeight, RasterizedChar,
 };
 
 /// Additional vertical space between lines
