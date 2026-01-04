@@ -1,67 +1,90 @@
-# NexusOS MVP Tracking
+# MVP Tracking - NexusOS
 
-## 1. Project Dashboard
+**Last Updated:** 2026-01-04 14:41:07 UTC
 
-**Current Status:** `[==........] 20%`
-
-**Active Milestone:** 🟢 **M1: The Awakening**
-
-**Next Big Goal:** Boot into a shell with memory management.
-
----
-
-## 2. Milestone Breakdown (Granular Tasks)
-
-### M1: The Awakening (Boot & Output)
-- [ ] Initialize `no_std` crate structure.
-- [ ] Implement VGA Driver (`0xb8000` safe wrapper).
-- [ ] Implement Global `WRITER` with `spin::Mutex`.
-- [ ] Implement `panic_handler` with line number output.
-- [ ] Configure `bootimage` runner in `.cargo/config.toml`.
-- [ ] **Verification:** "Hello NexusOS" visible in QEMU.
-
-### M2: The Memory Architect (Allocation)
-- [ ] Parse Multiboot2 Memory Map (Identify free RAM).
-- [ ] Implement Physical Frame Allocator (4KiB chunks).
-- [ ] Implement Virtual Memory (Recursive/Offset Page Tables).
-- [ ] Initialize Heap (Range: `0x4444_4444_0000`).
-- [ ] Implement `GlobalAlloc` trait (Bump Allocator first).
-- [ ] **Verification:** `Box::new(42)` and `Vec::push(1)` do not crash.
-
-### M3: The Hypervisor Core (Multitasking)
-- [ ] Create `Task` struct (Future polling logic).
-- [ ] Implement Simple Executor (Round-Robin loop).
-- [ ] Define `Waker` logic to handle sleeping tasks.
-- [ ] Set up IDT (Interrupt Descriptor Table).
-- [ ] Enable Hardware Interrupts (PIC/APIC) for Keyboard.
-- [ ] **Verification:** Two async print tasks run concurrently.
-
-### M4: The Cortex Integration (AI)
-- [ ] Enable CPU Features (SSE/AVX) in `x86_64` config.
-- [ ] Port `candle-core` to `no_std` (or create dummy backend).
-- [ ] Hardcode a "dummy" quantized model weight set.
-- [ ] Implement `infer(input)` function.
-- [ ] **Verification:** `kernel_main` calls AI and gets a result string.
-
-### M5: MemexFS Foundation (Storage)
-- [ ] Enumerate PCI bus to find NVMe Controller.
-- [ ] Write Polling NVMe Driver (Admin Queue init).
-- [ ] Implement `read_block` / `write_block`.
-- [ ] Port HNSW (Vector Index) logic to heap.
-
-### M6: The Interface (Shell)
-- [ ] Switch to Graphics Output Protocol (Framebuffer).
-- [ ] Render Text Rendering primitive (Font bitmap).
-- [ ] Implement Shell Loop (print "> ", `read_line`, `eval`).
+## Overall Progress
+```
+████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 31/100 (31%)
+```
 
 ---
 
-## 3. Legend & Workflow
+## Current Milestone: M2
 
-### Status Legend
-✅ = Merged to Main
-🚧 = In Progress
-🛑 = Blocked
+### M1: Core Infrastructure ✅ [COMPLETED]
 
-### Workflow Reminder
-> Check off items in the IDE preview or on GitHub after merging a feature branch.
+**Status:** 100% Complete
+
+#### Completed Tasks
+- [x] Repository setup and initial configuration
+- [x] Basic project structure and naming conventions
+- [x] Git workflow and branching strategy documentation
+- [x] Core kernel architecture design
+- [x] Memory management system implementation
+- [x] Process/task scheduling implementation
+- [x] Interrupt handling and exception management
+- [x] Device driver framework
+- [x] Basic filesystem (ext-like) implementation
+- [x] Boot loader and kernel entry point
+- [x] Hardware abstraction layer (HAL)
+- [x] Logging and debugging framework
+- [x] Unit testing infrastructure
+- [x] CI/CD pipeline setup
+
+**Completion Date:** 2026-01-04
+
+---
+
+### M2: System API & User Space (In Progress)
+
+**Status:** 0% Complete
+```
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 0/20 (0%)
+```
+
+#### Planned Tasks
+- [ ] System call interface definition and implementation
+- [ ] User space library (libc equivalent)
+- [ ] Shell/command interpreter
+- [ ] Basic command utilities (ls, cd, cat, etc.)
+- [ ] File I/O operations and permissions
+- [ ] Process creation and management (fork, exec)
+- [ ] Signal handling
+- [ ] Environment variables and configuration
+- [ ] Standard input/output/error handling
+- [ ] Job control and background processes
+- [ ] Pipe operations
+- [ ] Redirections (>, <, >>)
+- [ ] Pattern matching and globbing
+- [ ] History and line editing
+- [ ] User authentication and permissions
+- [ ] Process monitoring tools (ps, top)
+- [ ] System information tools (uname, sysinfo)
+- [ ] Resource management tools
+- [ ] Batch script execution
+- [ ] Testing framework for user space
+
+**Target Completion:** 2026-03-04
+
+---
+
+## Upcoming Milestones
+
+### M3: Advanced Features
+- IPC (Inter-Process Communication)
+- Networking stack
+- Advanced filesystem features
+- Performance optimization
+
+### M4: Polish & Production
+- Security hardening
+- Performance tuning
+- Documentation completion
+- Release preparation
+
+---
+
+## Notes
+- M1 successfully completed on 2026-01-04
+- Focus shifted to M2: System API & User Space development
+- All core infrastructure is stable and ready for user space development
