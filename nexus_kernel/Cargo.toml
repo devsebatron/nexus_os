@@ -1,0 +1,16 @@
+[package]
+name = "nexus_kernel"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+bootloader = { version = "0.9.23", features = ["map_physical_memory"] }
+lazy_static = { version = "1.4.0", features = ["spin_no_std"] }
+spin = "0.9.8"
+volatile = "0.2.6"
+
+[profile.dev]
+panic = "abort"
+
+[profile.release]
+panic = "abort"
