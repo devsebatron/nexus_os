@@ -28,14 +28,14 @@ We have abandoned the archaic hierarchy of folders and files. **MemexFS** is bui
 ```mermaid
 graph TD
     subgraph "Layer 0: Bare Metal / Hypervisor"
-        HW[Bare Metal Hardware (x86_64)]
-        Hyper[Rust Hypervisor & Allocator]
+        HW["Bare Metal Hardware (x86_64)"]
+        Hyper["Rust Hypervisor & Allocator"]
         HW --> Hyper
     end
 
     subgraph "Layer 1: The Engine"
-        Cortex[Cortex AI Engine (BitNet b1.58 / AVX-512)]
-        Memex[MemexFS Driver (Qdrant Vector DB)]
+        Cortex["Cortex AI Engine (BitNet b1.58 / AVX-512)"]
+        Memex["MemexFS Driver (Qdrant Vector DB)"]
         Hyper --> Cortex
         Hyper --> Memex
     end
