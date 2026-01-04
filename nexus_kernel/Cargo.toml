@@ -4,10 +4,13 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-bootloader = { version = "0.9.23", features = ["map_physical_memory"] }
+bootloader_api = "0.11"
 lazy_static = { version = "1.4.0", features = ["spin_no_std"] }
+log = "0.4.29"
+noto-sans-mono-bitmap = "0.3.1"
 spin = "0.9.8"
 volatile = "0.2.6"
+x86_64 = "0.15.4"
 
 [profile.dev]
 panic = "abort"

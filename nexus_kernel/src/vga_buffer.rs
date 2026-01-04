@@ -114,11 +114,16 @@ impl fmt::Write for Writer {
     }
 }
 
+pub static mut PHYSICAL_MEMORY_OFFSET: u64 = 0;
+
 lazy_static! {
     pub static ref WRITER: Mutex<Writer> = Mutex::new(Writer {
         column_position: 0,
         color_code: ColorCode::new(Color::Yellow, Color::Black),
-        buffer: unsafe { &mut *(0xb8000 as *mut Buffer) },
+        buffer: unsafe {
+            let offset = PHYSICAL_MEMORY_OFFSET;
+            &mut *((0xb8000 + offset) as *mut Buffer)
+        },
     });
 }
 
