@@ -69,6 +69,20 @@ impl FrameBufferWriter {
         }
     }
 
+    pub fn backspace(&mut self) {
+        let char_width =
+            get_raster_width(FontWeight::Regular, RasterHeight::Size16) + LETTER_SPACING;
+        if self.x_pos >= BORDER_PADDING + char_width {
+            self.x_pos -= char_width;
+            let char_height = RasterHeight::Size16.val();
+            for y in 0..char_height {
+                for x in 0..char_width {
+                    self.write_pixel(self.x_pos + x, self.y_pos + y, 0);
+                }
+            }
+        }
+    }
+
     fn write_rendered_char(&mut self, rendered_char: RasterizedChar) {
         for (y, row) in rendered_char.raster().iter().enumerate() {
             for (x, byte) in row.iter().enumerate() {

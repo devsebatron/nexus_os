@@ -62,21 +62,8 @@ impl Stream for ScancodeStream {
     }
 }
 
-pub async fn print_keypresses() {
-    let mut scancodes = ScancodeStream::new();
-    use futures::stream::StreamExt;
-
-    while let Some(scancode) = scancodes.next().await {
-        if let Ok(char) = decode_scancode(scancode) {
-            crate::print!("{}", char);
-        } else {
-            crate::print!("{}", scancode);
-        }
-    }
-}
-
-fn decode_scancode(scancode: u8) -> Result<char, ()> {
-    // minimalist set 1 (QWERTY)
+pub(crate) fn decode_scancode(scancode: u8) -> Option<char> {
+    // PS/2 scancode set 1 (QWERTY), key-down only (< 0x80)
     let c = match scancode {
         0x02 => '1',
         0x03 => '2',
@@ -115,8 +102,7 @@ fn decode_scancode(scancode: u8) -> Result<char, ()> {
         0x31 => 'n',
         0x32 => 'm',
         0x39 => ' ',
-        0x1C => '\n',
-        _ => return Err(()),
+        _ => return None,
     };
-    Ok(c)
+    Some(c)
 }
