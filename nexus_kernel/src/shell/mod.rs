@@ -13,14 +13,16 @@ pub async fn run() {
 
     while let Some(sc) = scancodes.next().await {
         match sc {
-            _ if sc >= 0x80 => {}  // key-release event, ignore
-            0x0E => {              // Backspace
+            _ if sc >= 0x80 => {} // key-release event, ignore
+            0x0E => {
+                // Backspace
                 if !buf.is_empty() {
                     buf.pop();
                     crate::_backspace();
                 }
             }
-            0x1C => {              // Enter
+            0x1C => {
+                // Enter
                 crate::println!();
                 let line = String::from_utf8_lossy(&buf);
                 dispatch(line.trim());
@@ -50,13 +52,13 @@ fn dispatch(line: &str) {
     let args = parts.next().unwrap_or("").trim();
 
     match cmd {
-        "help"    => cmd_help(),
-        "clear"   => cmd_clear(),
-        "echo"    => crate::println!("{}", args),
+        "help" => cmd_help(),
+        "clear" => cmd_clear(),
+        "echo" => crate::println!("{}", args),
         "version" => crate::println!("NexusOS v0.1.0 (cortex_integration)"),
-        "cortex"  => cmd_cortex(args),
+        "cortex" => cmd_cortex(args),
         "meminfo" => cmd_meminfo(),
-        _         => crate::println!("unknown command: {}  (try 'help')", cmd),
+        _ => crate::println!("unknown command: {}  (try 'help')", cmd),
     }
 }
 
