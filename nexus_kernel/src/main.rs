@@ -8,9 +8,13 @@ use alloc::{boxed::Box, vec::Vec};
 use bootloader_api::config::Mapping;
 use bootloader_api::{entry_point, BootInfo};
 use core::panic::PanicInfo;
+use core::sync::atomic::{AtomicU64, Ordering};
 use lazy_static::lazy_static;
 use spin::Mutex;
 use x86_64::VirtAddr;
+
+/// Physical memory offset set at boot; used by drivers for phys↔virt conversion.
+pub static PHYS_MEM_OFFSET: AtomicU64 = AtomicU64::new(0);
 
 use logger::FrameBufferWriter;
 
@@ -19,6 +23,7 @@ mod cortex;
 mod interrupts;
 mod logger;
 mod memory;
+mod nvme;
 mod pci;
 mod shell;
 mod task;
@@ -86,7 +91,9 @@ fn kernel_main(boot_info: &'static mut BootInfo) -> ! {
     println!("Hello NexusOS!");
     println!("We are back in text mode, but now with PIXELS!");
 
-    let phys_mem_offset = VirtAddr::new(boot_info.physical_memory_offset.into_option().unwrap());
+    let phys_offset_val = boot_info.physical_memory_offset.into_option().unwrap();
+    PHYS_MEM_OFFSET.store(phys_offset_val, Ordering::Relaxed);
+    let phys_mem_offset = VirtAddr::new(phys_offset_val);
     println!("Physical memory offset: {:?}", phys_mem_offset);
 
     println!("Initializing mapper...");

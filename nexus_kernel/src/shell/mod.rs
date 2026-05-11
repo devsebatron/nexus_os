@@ -59,6 +59,7 @@ fn dispatch(line: &str) {
         "cortex" => cmd_cortex(args),
         "meminfo" => cmd_meminfo(),
         "pci" => cmd_pci(),
+        "nvme" => cmd_nvme(),
         _ => crate::println!("unknown command: {}  (try 'help')", cmd),
     }
 }
@@ -72,6 +73,7 @@ fn cmd_help() {
     crate::println!("  cortex <text>   run Cortex AI inference on input");
     crate::println!("  meminfo         show heap memory info");
     crate::println!("  pci             list PCI devices");
+    crate::println!("  nvme            show NVMe controller info");
 }
 
 fn cmd_clear() {
@@ -89,6 +91,19 @@ fn cmd_cortex(args: &str) {
         .collect();
     let result = crate::cortex::CortexEngine::new().infer(&input);
     crate::println!("{}", result);
+}
+
+fn cmd_nvme() {
+    crate::println!("Initialising NVMe controller...");
+    match crate::nvme::find_and_init() {
+        Some(info) => {
+            crate::println!("  Vendor:   0x{:04x}", info.vendor_id);
+            crate::println!("  Model:    {}", info.model_str());
+            crate::println!("  Serial:   {}", info.serial_str());
+            crate::println!("  Firmware: {}", info.firmware_str());
+        }
+        None => crate::println!("No NVMe controller found or init failed."),
+    }
 }
 
 fn cmd_meminfo() {

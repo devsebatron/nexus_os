@@ -5,7 +5,7 @@ const CONFIG_ADDRESS: u16 = 0xCF8;
 const CONFIG_DATA: u16 = 0xCFC;
 
 /// Read a 32-bit dword from PCI configuration space.
-fn config_read(bus: u8, device: u8, func: u8, offset: u8) -> u32 {
+pub(crate) fn config_read(bus: u8, device: u8, func: u8, offset: u8) -> u32 {
     let address: u32 = (1 << 31)
         | ((bus as u32) << 16)
         | ((device as u32) << 11)
@@ -29,6 +29,8 @@ pub struct PciDevice {
     pub class: u8,
     pub subclass: u8,
     pub prog_if: u8,
+    /// Physical base address of BAR0 (MMIO region)
+    pub bar0: u64,
 }
 
 /// Scan all PCI buses and return every device found.
@@ -76,6 +78,22 @@ fn scan_function(bus: u8, dev: u8, func: u8, vendor_id: u16, devices: &mut Vec<P
     let subclass = ((class_reg >> 16) & 0xFF) as u8;
     let prog_if = ((class_reg >> 8) & 0xFF) as u8;
 
+    // Read BAR0; handles both 32-bit and 64-bit memory BARs.
+    let bar0_raw = config_read(bus, dev, func, 0x10);
+    let bar0 = if bar0_raw & 1 == 0 {
+        // Memory BAR
+        if (bar0_raw >> 1) & 0x3 == 0x2 {
+            // 64-bit BAR: high 32 bits are in BAR1
+            let hi = config_read(bus, dev, func, 0x14);
+            (bar0_raw as u64 & !0xF) | ((hi as u64) << 32)
+        } else {
+            // 32-bit BAR
+            (bar0_raw as u64) & !0xF
+        }
+    } else {
+        0 // I/O BAR, not used
+    };
+
     devices.push(PciDevice {
         bus,
         device: dev,
@@ -85,6 +103,7 @@ fn scan_function(bus: u8, dev: u8, func: u8, vendor_id: u16, devices: &mut Vec<P
         class,
         subclass,
         prog_if,
+        bar0,
     });
 
     // If this is a PCI-to-PCI bridge, we would recurse into the secondary bus.

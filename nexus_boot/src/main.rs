@@ -43,10 +43,25 @@ fn main() {
     let boot = bootloader::BiosBoot::new(&kernel_binary);
     boot.create_disk_image(&image_path).unwrap();
 
-    // Run QEMU
+    // Create a blank NVMe disk image if one doesn't exist yet
+    let disk_path = kernel_path.parent().unwrap().join("nexus_disk.img");
+    if !disk_path.exists() {
+        let disk = std::fs::File::create(&disk_path).expect("failed to create NVMe disk image");
+        disk.set_len(64 * 1024 * 1024)
+            .expect("failed to size NVMe disk image"); // 64 MiB
+        println!("Created nexus_disk.img (64 MiB)");
+    }
+
+    // Run QEMU with boot image + NVMe device
     let mut cmd = Command::new("qemu-system-x86_64");
-    cmd.arg("-drive");
-    cmd.arg(format!("format=raw,file={}", image_path.display()));
+    cmd.arg("-drive")
+        .arg(format!("format=raw,file={}", image_path.display()));
+    cmd.arg("-device")
+        .arg("nvme,drive=nvme0,serial=nexusdisk01");
+    cmd.arg("-drive").arg(format!(
+        "file={},if=none,id=nvme0,format=raw",
+        disk_path.display()
+    ));
 
     let mut child = cmd.spawn().unwrap();
     child.wait().unwrap();
