@@ -58,6 +58,7 @@ fn dispatch(line: &str) {
         "version" => crate::println!("NexusOS v0.1.0 (cortex_integration)"),
         "cortex" => cmd_cortex(args),
         "meminfo" => cmd_meminfo(),
+        "pci" => cmd_pci(),
         _ => crate::println!("unknown command: {}  (try 'help')", cmd),
     }
 }
@@ -70,6 +71,7 @@ fn cmd_help() {
     crate::println!("  version         show OS version");
     crate::println!("  cortex <text>   run Cortex AI inference on input");
     crate::println!("  meminfo         show heap memory info");
+    crate::println!("  pci             list PCI devices");
 }
 
 fn cmd_clear() {
@@ -92,4 +94,25 @@ fn cmd_cortex(args: &str) {
 fn cmd_meminfo() {
     crate::println!("Heap base: 0x4444_4444_0000");
     crate::println!("Heap size: 1 MiB");
+}
+
+fn cmd_pci() {
+    crate::println!("Scanning PCI bus...");
+    let devices = crate::pci::enumerate();
+    if devices.is_empty() {
+        crate::println!("No PCI devices found.");
+        return;
+    }
+    crate::println!("{} device(s) found:", devices.len());
+    for d in &devices {
+        crate::println!(
+            "  {:02x}:{:02x}.{} [{:04x}:{:04x}] {}",
+            d.bus,
+            d.device,
+            d.function,
+            d.vendor_id,
+            d.device_id,
+            crate::pci::class_name(d.class, d.subclass)
+        );
+    }
 }

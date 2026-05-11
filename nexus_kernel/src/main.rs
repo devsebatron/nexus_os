@@ -19,6 +19,7 @@ mod cortex;
 mod interrupts;
 mod logger;
 mod memory;
+mod pci;
 mod shell;
 mod task;
 
