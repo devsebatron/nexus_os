@@ -4,7 +4,7 @@
 
 extern crate alloc;
 
-use alloc::{boxed::Box, vec, vec::Vec};
+use alloc::{boxed::Box, vec::Vec};
 use bootloader_api::config::Mapping;
 use bootloader_api::{entry_point, BootInfo};
 use core::panic::PanicInfo;
@@ -19,6 +19,7 @@ mod cortex;
 mod interrupts;
 mod logger;
 mod memory;
+mod shell;
 mod task;
 
 pub static BOOTLOADER_CONFIG: bootloader_api::BootloaderConfig = {
@@ -46,10 +47,27 @@ macro_rules! println {
 pub fn _print(args: core::fmt::Arguments) {
     use core::fmt::Write;
     use x86_64::instructions::interrupts;
-
     interrupts::without_interrupts(|| {
         if let Some(writer) = WRITER.lock().as_mut() {
             writer.write_fmt(args).unwrap();
+        }
+    });
+}
+
+pub fn _backspace() {
+    use x86_64::instructions::interrupts;
+    interrupts::without_interrupts(|| {
+        if let Some(writer) = WRITER.lock().as_mut() {
+            writer.backspace();
+        }
+    });
+}
+
+pub fn _clear() {
+    use x86_64::instructions::interrupts;
+    interrupts::without_interrupts(|| {
+        if let Some(writer) = WRITER.lock().as_mut() {
+            writer.clear();
         }
     });
 }
@@ -94,20 +112,15 @@ fn kernel_main(boot_info: &'static mut BootInfo) -> ! {
 
     println!("Heap verification successful!");
 
-    println!("Heap verification successful!");
-
     init(); // Initialize IDT and PICs
 
     // Cortex AI Layer Initialization
     println!("Initializing Cortex AI Layer...");
-    let cortex = cortex::CortexEngine::new();
-    let input = vec![0.5, -0.5, 1.0, 0.0];
-    let result = cortex.infer(&input);
-    println!("{}", result);
-    println!("Cortex Engine: AVX registers used successfully without fault.");
+    let input = alloc::vec![0.5f32, -0.5, 1.0, 0.0];
+    println!("{}", cortex::CortexEngine::new().infer(&input));
 
     let mut executor = task::simple_executor::SimpleExecutor::new();
-    executor.spawn(task::Task::new(task::keyboard::print_keypresses()));
+    executor.spawn(task::Task::new(shell::run()));
     executor.run();
 
     loop {
