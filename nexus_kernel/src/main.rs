@@ -16,6 +16,9 @@ use x86_64::VirtAddr;
 /// Physical memory offset set at boot; used by drivers for phys↔virt conversion.
 pub static PHYS_MEM_OFFSET: AtomicU64 = AtomicU64::new(0);
 
+/// Global frame allocator — available to drivers after heap initialisation.
+pub static FRAME_ALLOCATOR: Mutex<Option<memory::BootInfoFrameAllocator>> = Mutex::new(None);
+
 use logger::FrameBufferWriter;
 
 mod allocator;
@@ -108,6 +111,9 @@ fn kernel_main(boot_info: &'static mut BootInfo) -> ! {
     println!("Initializing heap...");
     allocator::init_heap(&mut mapper, &mut frame_allocator).expect("heap initialization failed");
     println!("Heap initialized.");
+
+    // Move frame allocator into global so drivers (NVMe, etc.) can allocate DMA frames.
+    *FRAME_ALLOCATOR.lock() = Some(frame_allocator);
 
     let heap_value = Box::new(41);
     println!("heap_value at {:p}", heap_value);
